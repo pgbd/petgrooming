@@ -5,7 +5,7 @@ These documents are the source of truth for Pet Grooming BD. Code follows the do
 | Document | Phase A step | Status |
 |---|---|---|
 | `PRD.md` | D1 | Draft (OWN-001…010 mapping pending the Architecture Revision Note) |
-| `AppFlow.md` | D2 | Planned |
+| `AppFlow.md` | D2 | Draft (exact "four separate states" to confirm against the Note) |
 | `UI_Spec.md` | D3 | Planned |
 | `TRD.md` | D4 | Planned |
 | `Schema.md` | D5 | Planned |
