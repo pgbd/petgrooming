@@ -36,3 +36,47 @@ jobs:
 
       - name: Tests
         run: composer test
+
+  concurrency:
+    name: concurrency (MariaDB 11.4)
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          # Throwaway credential for an ephemeral service container; not a real secret.
+          MARIADB_ROOT_PASSWORD: ci-only-throwaway
+          MARIADB_DATABASE: petgrooming_spike
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo_mysql, intl
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Concurrency suite on real MariaDB
+        env:
+          DB_CONNECTION: mariadb
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: petgrooming_spike
+          DB_USERNAME: root
+          DB_PASSWORD: ci-only-throwaway
+        run: vendor/bin/phpunit tests/Concurrency
