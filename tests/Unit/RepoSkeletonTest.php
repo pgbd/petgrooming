@@ -87,6 +87,15 @@ class RepoSkeletonTest extends TestCase
         $this->assertArrayHasKey('larastan/larastan', $composer['require-dev']);
     }
 
+    public function test_pull_request_template_states_the_definition_of_done(): void
+    {
+        $template = $this->read('.github/pull_request_template.md');
+
+        foreach (['Task ID', 'composer lint', 'composer analyse', 'composer test', 'docs updated'] as $needle) {
+            $this->assertStringContainsString($needle, $template);
+        }
+    }
+
     public function test_no_filament_dependency_before_spike_s1(): void
     {
         $composer = $this->read('composer.json');
