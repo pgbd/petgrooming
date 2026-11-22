@@ -7,7 +7,7 @@ These documents are the source of truth for Pet Grooming BD. Code follows the do
 | `PRD.md` | D1 | Draft (OWN-001…010 mapping pending the Architecture Revision Note) |
 | `AppFlow.md` | D2 | Draft (exact "four separate states" to confirm against the Note) |
 | `UI_Spec.md` | D3 | Draft (items marked "proposed" need sign-off) |
-| `TRD.md` | D4 | Planned |
+| `TRD.md` | D4 | Draft (versions unpinned until S-1; performance budget Unset) |
 | `Schema.md` | D5 | Planned |
 | `Plan.md` | D6 | Planned |
 
