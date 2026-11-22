@@ -118,7 +118,9 @@ Exit: G3 and G4, with evidence for all 20 gates.
 
 | Gate | Status | Record |
 |---|---|---|
-| G0 | Confirmed by the user; REV-1 (OWN and R traceability) and the "proposed" UI items carried forward | [ADR-0008](decisions/0008-g0-confirmation.md) |
+| G0 | Confirmed by the user | [ADR-0008](decisions/0008-g0-confirmation.md) |
+| REV-1 | Confirmed by the user; official OWN and R id mapping waits for the Architecture Revision Note, provisional keys stay | [ADR-0009](decisions/0009-rev1-and-ui-approvals.md) |
+| UI_Spec proposals | Approved by the user | [ADR-0009](decisions/0009-rev1-and-ui-approvals.md) |
 | G1 | Not started; needs spikes S-0 to S-7 and PERF-0 | — |
 | G3, G4 | Not started | — |
 

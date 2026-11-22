@@ -51,6 +51,21 @@ class DecisionRecordsTest extends TestCase
         $this->assertStringContainsString('ADR-0008', $plan);
     }
 
+    public function test_rev1_and_ui_approvals_are_recorded_with_their_caveats(): void
+    {
+        $adr = $this->record(9);
+
+        foreach (['Status: Accepted', 'REV-1', 'UI_Spec', 'Approved', 'OWN-P', 'provisional', 'Architecture Revision Note'] as $needle) {
+            $this->assertStringContainsString($needle, $adr, "ADR-0009 lacks '$needle'");
+        }
+
+        $root = dirname(__DIR__, 2).'/docs/';
+        $ui = file_get_contents($root.'UI_Spec.md');
+        $this->assertStringNotContainsString('(proposed)', $ui, 'Approved items must no longer be marked proposed');
+        $this->assertStringContainsString('ADR-0009', $ui);
+        $this->assertStringContainsString('ADR-0009', file_get_contents($root.'Plan.md'));
+    }
+
     public function test_specific_decisions_are_recorded(): void
     {
         $this->assertStringContainsString('Laragon', $this->record(1));
