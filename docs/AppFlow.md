@@ -21,7 +21,7 @@ Public request → Confirm → Check-in → Complete → Invoice → Payment or 
 
 ## 2. Separate state machines
 
-The plan requires booking, payment and delivery outcomes to stay independent: a payment problem never rewrites the booking, and an SMS failure never rewrites either. Five are named in the sources. The plan says "four separate states" without listing them, so the exact set is **open** and must be confirmed against the Note.
+The plan requires booking, payment and delivery outcomes to stay independent: a payment problem never rewrites the booking, and an SMS failure never rewrites either. Per ADR-0003 the four business states are booking, invoice, payment (including advance) and refund. Notification is a delivery status carried by the outbox. The choice should be checked against the Note when it is available.
 
 ### Booking state
 
@@ -49,7 +49,7 @@ Refund Invoice lifecycle: draft → pending payout → completed, failed or void
 - Pending reserves the amount, and the payout is posted exactly once.
 - Archived reasons stay visible on older documents.
 
-### Notification state
+### Notification state (delivery status)
 
 - Critical SMS is written as an outbox row in the same transaction as the business change. After-commit dispatch alone is not delivery.
 - A provider failure leaves the booking as it is: it stays confirmed, and the failure is visible. Retries and stale-reminder handling are part of the notification flow.
@@ -76,7 +76,6 @@ Whether credit is applied automatically or selected by staff, and whether advanc
 
 ## 5. Gaps to close before G0
 
-- The exact four separate states (section 2).
 - Booking and appointment transition table, beyond the stages above.
 - Home-service flow details, which depend on the Unset coverage, fee and failed-visit settings.
-- Which of the receptionist, groomer, cashier and manager functions each of the six accounts holds (see PRD section 4).
+- Which person holds which roles among receptionist, groomer, cashier and manager (ADR-0002 makes them roles; the assignment is Unset in PRD section 4).

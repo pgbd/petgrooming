@@ -69,6 +69,11 @@ class TrdDocumentTest extends TestCase
         }
     }
 
+    public function test_branch_model_includes_develop_as_integration_branch(): void
+    {
+        $this->assertMatchesRegularExpression('/`develop`.*integration/i', $this->trd);
+    }
+
     public function test_production_access_is_restricted(): void
     {
         $this->assertStringContainsString('Vaiya', $this->trd);
