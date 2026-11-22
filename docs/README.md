@@ -8,7 +8,7 @@ These documents are the source of truth for Pet Grooming BD. Code follows the do
 | `AppFlow.md` | D2 | Draft (exact "four separate states" to confirm against the Note) |
 | `UI_Spec.md` | D3 | Draft (items marked "proposed" need sign-off) |
 | `TRD.md` | D4 | Draft (versions unpinned until S-1; performance budget Unset) |
-| `Schema.md` | D5 | Planned |
+| `Schema.md` | D5 | Draft (entity list is a proposal; columns Unset) |
 | `Plan.md` | D6 | Planned |
 
 Later additions (created as needed, not on day one): `decisions/`, `runbook.md`, `project-status.md`.
