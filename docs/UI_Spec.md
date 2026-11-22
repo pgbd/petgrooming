@@ -1,6 +1,6 @@
 # Pet Grooming BD — UI Specification (D3)
 
-Status: **Draft for G0 review.** Built from [PRD.md](PRD.md) and [AppFlow.md](AppFlow.md); where those are silent, behaviour is marked **(proposed)** and needs owner or reviewer sign-off. Nothing here sets a value that the PRD lists as Unset.
+Status: **Draft for G0 review.** Built from [PRD.md](PRD.md) and [AppFlow.md](AppFlow.md); where those are silent, the behaviour was proposed and then approved in [ADR-0009](decisions/0009-rev1-and-ui-approvals.md), and is marked **(approved, ADR-0009)**. Nothing here sets a value that the PRD lists as Unset.
 
 ## Conventions
 
@@ -15,7 +15,7 @@ Status: **Draft for G0 review.** Built from [PRD.md](PRD.md) and [AppFlow.md](Ap
 
 Purpose: turn a saved booking request into one confirmed appointment (AppFlow, Confirm).
 
-Shows: request detail and notes, matched customer and pets (never overwritten by the request), branch, chosen groomer and resource, requested time, hold status, and the version of the record being edited. Actions: Confirm, Reject (proposed), Back.
+Shows: request detail and notes, matched customer and pets (never overwritten by the request), branch, chosen groomer and resource, requested time, hold status, and the version of the record being edited. Actions: Confirm, Reject (approved, ADR-0009), Back.
 
 | State | Behaviour |
 |---|---|
@@ -41,7 +41,7 @@ Shows: expected totals from posted collections (cash, bKash, Nagad), reversals, 
 | Empty | No collections for the day: expected shows zero for every method and the close can still be submitted |
 | Loading | Expected totals load before declared fields accept input, so a declaration is never compared with partial data |
 | Validation | A non-zero difference without a reason, or a non-decimal amount, is rejected beside the field. Amounts are decimals, never floating point |
-| Conflict | A collection or reversal posted after the screen loaded changes the expected total. The screen refreshes the expected figure and asks for the declaration again (proposed) |
+| Conflict | A collection or reversal posted after the screen loaded changes the expected total. The screen refreshes the expected figure and asks for the declaration again (approved, ADR-0009) |
 | Permission | Only authorised staff in the branch can close. Others see the figures read-only or not at all |
 | Failure | A failed submit keeps the entered values and offers retry with the same idempotency key. A close is never half-recorded |
 
@@ -74,7 +74,7 @@ Shows: each setting with its type, current value or **Unset**, version, who chan
 | Normal | A list grouped by area. Unset settings are flagged and list the operations they block |
 | Empty | A fresh install shows every setting as Unset. That is the expected starting point, not an error |
 | Loading | Values load before Edit is enabled so a stale value cannot be saved over a newer one |
-| Validation | Wrong type or out-of-range input is rejected beside the field. A required reason for the change is enforced where the plan requires approval (proposed) |
+| Validation | Wrong type or out-of-range input is rejected beside the field. A required reason for the change is enforced where the plan requires approval (approved, ADR-0009) |
 | Conflict | A newer version exists: the screen shows the difference and requires an explicit re-apply. Saves are never silent overwrites |
 | Permission | Admins only. Staff can read effective values where an operation needs them but cannot edit |
 | Failure | A failed save keeps the form and shows the error. A changed setting never alters a confirmed booking or an issued document |
@@ -83,4 +83,4 @@ Shows: each setting with its type, current value or **Unset**, version, who chan
 
 - Role-to-screen access depends on how the six accounts map onto functions (PRD section 4).
 - Copy, typography, spacing and colour belong to the design-system step, which is not yet written.
-- Items marked (proposed) need the owner's or the reviewer's decision before G0.
+- The three behaviours marked (approved, ADR-0009) were proposals and are now approved; nothing remains proposed.
