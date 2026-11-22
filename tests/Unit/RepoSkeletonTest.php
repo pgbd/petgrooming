@@ -96,10 +96,11 @@ class RepoSkeletonTest extends TestCase
         }
     }
 
-    public function test_no_filament_dependency_before_spike_s1(): void
+    public function test_filament_requires_the_s1_spike_record(): void
     {
-        $composer = $this->read('composer.json');
+        $hasFilament = str_contains($this->read('composer.json'), 'filament/');
+        $hasRecord = is_file(dirname(__DIR__, 2).'/docs/spikes/S-1.md');
 
-        $this->assertStringNotContainsString('filament/', $composer, 'Plan: no version pin before spike S-1');
+        $this->assertTrue(! $hasFilament || $hasRecord, 'Plan: no version pin without the S-1 record');
     }
 }
