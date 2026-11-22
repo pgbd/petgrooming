@@ -1,0 +1,32 @@
+name: pgdev
+services:
+  mariadb:
+    image: mariadb:11.4
+    environment:
+      MARIADB_ROOT_PASSWORD: ${PGDEV_DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: petgrooming_spike
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    mem_limit: 1g
+    networks: [pgdev]
+    volumes:
+      - dbdata:/var/lib/mysql
+  app:
+    build: .
+    image: pgdev-app:latest
+    working_dir: /app
+    volumes:
+      - ../petgroomdev:/app
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    mem_limit: 2g
+    networks: [pgdev]
+    command: ["sleep", "infinity"]
+networks:
+  pgdev:
+volumes:
+  dbdata:
