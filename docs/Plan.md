@@ -114,6 +114,14 @@ Exit: G3 and G4, with evidence for all 20 gates.
 | G3 | Gate: security and performance accepted | HARD-1, HARD-2, HARD-3 | Evidence attached | — |
 | G4 | Gate: launch readiness, all gates evidenced | G3, HARD-5 | Evidence for gates 1 to 20 | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 |
 
+## Gate status
+
+| Gate | Status | Record |
+|---|---|---|
+| G0 | Confirmed by the user; REV-1 (OWN and R traceability) and the "proposed" UI items carried forward | [ADR-0008](decisions/0008-g0-confirmation.md) |
+| G1 | Not started; needs spikes S-0 to S-7 and PERF-0 | — |
+| G3, G4 | Not started | — |
+
 ## Gates
 
 Gate 3 note: the MVP has no customer login. M1 proves only that ownership policy holds and public endpoints leak nothing; the full test is mandatory in M5 before any private endpoint opens.

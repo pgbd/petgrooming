@@ -38,6 +38,19 @@ class DecisionRecordsTest extends TestCase
         }
     }
 
+    public function test_g0_confirmation_is_recorded_with_its_caveats(): void
+    {
+        $adr = $this->record(8);
+
+        foreach (['Status: Accepted', 'G0', 'confirmed', 'REV-1', 'Architecture Revision Note', 'OWN-001', 'Vaiya'] as $needle) {
+            $this->assertStringContainsString($needle, $adr, "ADR-0008 lacks '$needle'");
+        }
+
+        $plan = file_get_contents(dirname(__DIR__, 2).'/docs/Plan.md');
+        $this->assertMatchesRegularExpression('/^## Gate status/m', $plan);
+        $this->assertStringContainsString('ADR-0008', $plan);
+    }
+
     public function test_specific_decisions_are_recorded(): void
     {
         $this->assertStringContainsString('Laragon', $this->record(1));
