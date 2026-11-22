@@ -11,6 +11,6 @@ These documents are the source of truth for Pet Grooming BD. Code follows the do
 | `Schema.md` | D5 | Draft (entity list is a proposal; columns Unset) |
 | `Plan.md` | D6 | Draft (contradictions C1-C7 resolved by ADRs; OWN and R traceability pending) |
 
-Decisions are recorded in [`decisions/`](decisions/): ADR-0001 to ADR-0007 resolve contradictions C1 to C7 and remain subject to G0 sign-off.
+Decisions are recorded in [`decisions/`](decisions/): ADR-0001 to ADR-0007 resolve contradictions C1 to C7 and remain subject to G0 sign-off. ADR-0008 records the G0 confirmation and what it carries forward.
 
 Later additions (created as needed, not on day one): `runbook.md`, `project-status.md`.
