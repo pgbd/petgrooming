@@ -93,10 +93,31 @@ class PlanDocumentTest extends TestCase
         $this->assertMatchesRegularExpression('/code.*not.*start|no code/i', $this->plan);
     }
 
-    public function test_contradictions_are_listed_and_left_unresolved(): void
+    public function test_contradictions_close_only_through_a_decision_record(): void
     {
         $this->assertMatchesRegularExpression('/^## Contradictions/m', $this->plan);
-        $this->assertGreaterThanOrEqual(5, preg_match_all('/^\| C\d+ \|.*\| Unresolved \|$/m', $this->plan));
+
+        $count = preg_match_all('/^\| (C\d+) \|.*\| (Unresolved|Resolved by ADR-(\d{4})) \|$/m', $this->plan, $rows, PREG_SET_ORDER);
+        $this->assertGreaterThanOrEqual(7, $count);
+
+        foreach ($rows as $row) {
+            if ($row[2] !== 'Unresolved') {
+                $this->assertNotEmpty(
+                    glob(dirname(__DIR__, 2).'/docs/decisions/'.$row[3].'-*.md'),
+                    "{$row[1]} cites a missing decision record"
+                );
+            }
+        }
+
+        foreach (range(1, 7) as $n) {
+            $this->assertMatchesRegularExpression('/^\| C'.$n.' \|.*Resolved by ADR-000'.$n.' \|$/m', $this->plan, "C$n should be resolved");
+        }
+    }
+
+    public function test_outbox_table_is_a_task_before_the_relay(): void
+    {
+        $this->assertArrayHasKey('BK-8', $this->tasks);
+        $this->assertStringContainsString('BK-8', $this->tasks['API-2']['depends']);
     }
 
     public function test_lists_the_open_decisions_by_reference_to_the_prd(): void

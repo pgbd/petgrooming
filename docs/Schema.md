@@ -37,7 +37,7 @@ Status: **Draft for G0 review.** Built from [PRD.md](PRD.md), [AppFlow.md](AppFl
 | `advance_entries` | M3 | Customer advance ledger | append-only; available credit derived from posted entries and active reservations; linked reversals; consistent lock order |
 | `refund_invoices` | M3 | Refund documents | State draft, pending payout, completed, failed, void; active reason id and label snapshot required; pending reserves the amount; payout posted once |
 | `daily_closes` | M3 | Cashier close | Expected versus declared per method, with a reason for any difference |
-| `outbox_messages` | M5 | Critical SMS and other outbound messages | Written in the same transaction as the business change; relay retries failures. Timing is flagged below |
+| `outbox_messages` | M2 | Critical SMS and other outbound messages | Written in the same transaction as the business change (ADR-0004); the relay in M5 retries failures |
 
 Supporting tables from packages (roles and permissions, activity log, queue and cache tables) are introduced by the package that owns them, after S-1 settles versions.
 
@@ -73,7 +73,6 @@ The customer portal tables, including `customer_accounts`, are not built. Gate 3
 ## Open items
 
 - Column lists for every entity: the Note's entity table or an owner decision.
-- Whether the outbox table is created in M2, so booking confirmation can write its SMS row, or only in M5 as the milestone table suggests.
 - Price rule precedence, tax classes, and numbering gap rules: owner and accountant decisions.
 - Data ownership and retention per entity: accountant decision (record retention).
 - Whether branch is stored on appointments, invoices and payments directly, or derived: not stated in the sources.

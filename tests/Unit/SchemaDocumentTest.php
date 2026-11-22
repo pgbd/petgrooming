@@ -48,7 +48,7 @@ class SchemaDocumentTest extends TestCase
         $this->assertStringContainsString('| M1 |', $this->row('customers'));
         $this->assertStringContainsString('| M2 |', $this->row('appointments'));
         $this->assertStringContainsString('| M3 |', $this->row('refund_invoices'));
-        $this->assertStringContainsString('| M5 |', $this->row('outbox_messages'));
+        $this->assertStringContainsString('| M2 |', $this->row('outbox_messages'), 'ADR-0004: outbox table is created in M2');
     }
 
     public function test_ledger_and_snapshots_are_append_only_or_immutable(): void

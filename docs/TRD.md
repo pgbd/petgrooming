@@ -20,7 +20,8 @@ Status: **Draft for G0 review.** Built from the development plan (sections 2, 3,
 | Dev deploy | Hermes, after merge | Only `test.dev` and `admin.dev` |
 | Production deploy | Vaiya personally | Versioned image; Hermes holds no production credential |
 
-- Local and VPS must share the PHP 8.4 and MariaDB major version and the same Bengali font. Concurrency tests run in both places, otherwise results mislead. Local MariaDB is currently older than the target and must be aligned (checked in S-1).
+- Local and VPS must share the PHP 8.4 and MariaDB major version and the same Bengali font. Concurrency tests run in both places, otherwise results mislead. Local MariaDB is 10.11 against the 11.4 target; it is aligned before S-2 and the versions are recorded in S-1 (ADR-0006). Laragon stays the local runtime (ADR-0001).
+- `develop` is the integration branch (ADR-0005): `dev/*` and `agent/<task-id>` branches open PRs into it, and `main` only receives release PRs from it. Retarget a stacked PR before deleting its base branch.
 - Line endings are forced to LF through `.gitattributes` and `.editorconfig`.
 - Hermes takes instructions only from Vaiya's Discord ID. Secrets, `.env` files and tokens never go through Discord. `rm -rf`, force push and database drops need explicit approval.
 - Dev and production may share one VPS. Recommended: separate Linux users, Docker networks and resource limits, with room to move production to its own server later. The capacity assumption for the VPS is from the plan's earlier advice and needs confirming.
@@ -44,7 +45,7 @@ These are binding and mirrored in `CLAUDE.md`.
 
 ## Outbox and notifications
 
-- A business change and its outbox row commit together. A relay sends SMS, retries failures and handles stale reminders.
+- The outbox table is created in M2 so booking confirmation can write its SMS row (ADR-0004). A business change and its outbox row commit together. A relay sends SMS, retries failures and handles stale reminders.
 - A provider failure never rolls back or changes a booking; the failure is visible to staff.
 - A full relay with `SKIP LOCKED` is deferred until volume or missed reminders justify it (see Deferred).
 

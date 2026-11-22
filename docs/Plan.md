@@ -64,6 +64,7 @@ Exit: gates 1, 2 and 20; gates 8 and 19 partly.
 | BK-5 | Reschedule event, version check, state separation | BK-2 | Old reminder cancelled; a setting change leaves confirmed bookings alone | 8, 19 |
 | BK-6 | Home service booking | BK-2 | Blocks visibly while coverage, fee and failed-visit settings are Unset | — |
 | BK-7 | Completion and incident recording | BK-2 | Feature tests; assigned-appointment access only | — |
+| BK-8 | Outbox table; ConfirmAppointment writes its SMS row in the same transaction (ADR-0004) | BK-2 | Row exists after a confirm and not after a failed one | 8 |
 
 ## M3 — Finance
 
@@ -96,7 +97,7 @@ Exit: gates 2, 3, 8 and 12.
 | ID | Task | Depends on | Verify | Gates |
 |---|---|---|---|---|
 | API-1 | Public `/api/v1` slice with OpenAPI checked in CI | S-6, BK-4 | A non-browser client gets the same result | 2, 12 |
-| API-2 | Outbox relay, SMS retry and stale reminder | BK-5 | Provider failure leaves the booking; reschedule cancels the old reminder | 8 |
+| API-2 | Outbox relay, SMS retry and stale reminder | BK-5, BK-8 | Provider failure leaves the booking; reschedule cancels the old reminder | 8 |
 | API-3 | OTP and Sanctum design for later private endpoints | API-1 | Design reviewed; ownership tests run before any private endpoint opens | 3 |
 
 ## M6 — Hardening and launch
@@ -142,17 +143,17 @@ Gate 3 note: the MVP has no customer login. M1 proves only that ownership policy
 
 ## Contradictions
 
-Found while drafting. None is resolved silently; each needs an owner or reviewer decision.
+Found while drafting. None was resolved silently: each is closed only by an accepted record in [decisions](decisions/). G0 sign-off may still revise a record.
 
 | ID | Topic and conflicting statements | Status |
 |---|---|---|
-| C1 | Local runtime: confirmed baseline says Laragon on Windows, while the earlier AI-workflow advice says WSL2 with Docker Compose | Unresolved |
-| C2 | Accounts: the owner says 2 admins and 4 staff, while the journeys name receptionist, groomer, cashier and manager | Unresolved |
-| C3 | The plan says four separate states without naming them; the sources name five | Unresolved |
-| C4 | The milestone table puts the outbox in M5, but confirming a booking in M2 needs to write its SMS row | Unresolved |
-| C5 | The plan's branch model is dev, agent and main; the repository also has a develop branch created at the owner's request | Unresolved |
-| C6 | Local MariaDB is older than the preferred 11.4 LTS | Unresolved |
-| C7 | The earlier advice names files such as product-spec and data-model; Phase A names PRD, AppFlow, UI_Spec, TRD, Schema and Plan | Unresolved |
+| C1 | Local runtime: confirmed baseline says Laragon on Windows, while the earlier AI-workflow advice says WSL2 with Docker Compose | Resolved by ADR-0001 |
+| C2 | Accounts: the owner says 2 admins and 4 staff, while the journeys name receptionist, groomer, cashier and manager | Resolved by ADR-0002 |
+| C3 | The plan says four separate states without naming them; the sources name five | Resolved by ADR-0003 |
+| C4 | The milestone table puts the outbox in M5, but confirming a booking in M2 needs to write its SMS row | Resolved by ADR-0004 |
+| C5 | The plan's branch model is dev, agent and main; the repository also has a develop branch created at the owner's request | Resolved by ADR-0005 |
+| C6 | Local MariaDB is older than the preferred 11.4 LTS | Resolved by ADR-0006 |
+| C7 | The earlier advice names files such as product-spec and data-model; Phase A names PRD, AppFlow, UI_Spec, TRD, Schema and Plan | Resolved by ADR-0007 |
 
 ## Open decisions
 

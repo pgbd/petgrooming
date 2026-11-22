@@ -34,7 +34,7 @@ A web platform for Pet Grooming BD: a public Bengali-first website with booking 
 | Admin (2) | All staff capabilities, plus settings, reason catalog and approvals |
 | Staff (4) | Confirm requests, schedule, check-in, complete, invoice, collect, cancel and refund |
 
-The plan's user journeys also name receptionist, groomer, cashier and manager. **Contradiction to resolve:** the owner states 2 admins and 4 staff, so how those four functional roles map onto six accounts is **Unset** (owner decision, before M1).
+The plan's user journeys also name receptionist, groomer, cashier and manager. Per ADR-0002 these four functions are **roles**, not accounts: any of the six accounts can hold several, and admins hold all. Which person holds which roles is **Unset** (owner decision, before M1).
 
 ## 5. Scope
 
